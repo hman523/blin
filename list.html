@@ -18,11 +18,13 @@
 	<!--YOU NEED THE ARRAY FROM JAKE!!!!! -->
 	<div class="center">
 	<p></p>
-		<table>
-		<tr>
-			<th>Time</th>
-			<th>Place</th>
-		</tr>
+
+		<table class="container">
+		<thread><tr>
+			<th><h1>Time<h1></th>
+			<th><h1>Place</h1></th>
+		</tr></thread>
+			<tbody>
 			<script>
 				function addTime(hours, minutes){
 					currentTimeMin += minutes;
@@ -34,10 +36,27 @@
 					if(currentTimeHour >= 24){
 						currentTimeHour-=24;
 					}
-					if (currentTimeMin < 10){
-						return "" + currentTimeHour+ ":0" + currentTimeMin;
+					return updateTime();
+					
+				}
+
+				function updateTime(){
+					if(currentTimeHour > 12){
+						if (currentTimeMin < 10){
+							return "" + (currentTimeHour-12) + ":0" + currentTimeMin + "PM";
+						}
+						return "" + (currentTimeHour-12)+ ":" + currentTimeMin + "PM";
 					}
-					return "" + currentTimeHour+ ":" + currentTimeMin;
+					if(currentTimeHour ==0){
+							if (currentTimeMin < 10){
+								return "" + 12 + ":0" + currentTimeMin + "AM";
+						}
+						return "" + 12 + ":" + currentTimeMin + "AM";
+					}
+					if (currentTimeMin < 10){
+							return "" + currentTimeHour+ ":0" + currentTimeMin;
+						}
+					return "" + currentTimeHour+ ":" + currentTimeMin + "AM";
 				}
 
 				//Add real values from jake and joey
@@ -47,22 +66,23 @@
 				var uberTimeLengths = [10, 20, 4];
 				var estimatedtimeAtLocation = [60, 45, 100];
 
-				$("table").append("<tr><th>" + currentTimeHour + ":"+ currentTimeMin + "</th><th>Starting location</th>")
+
+				$("table").append("<tr><th>" + updateTime() + "</th><th>Starting location</th>")
 				
 
 				
 				for (var i = 0; i < places.length; i++) {
   					if(currentTimeMin < 10){
-  						$("table").append("<tr><th>" + currentTimeHour + ":0" + currentTimeMin + "-" + addTime(0, uberTimeLengths[i])+"<th>Ride in Uber</th>");
+  						$("table").append("<tr><th>" + updateTime() + "-" + addTime(0, uberTimeLengths[i])+"<th>Ride in Uber</th>");
   					}
   					else{
-  						$("table").append("<tr><th>" + currentTimeHour + ":" + currentTimeMin + "-" + addTime(0, uberTimeLengths[i])+"<th>Ride in Uber</th>");
+  						$("table").append("<tr><th>" + updateTime() + "-" + addTime(0, uberTimeLengths[i])+"<th>Ride in Uber</th>");
   					}
  					if(currentTimeMin < 10){
-  						$("table").append("<tr><th>" + currentTimeHour + ":0" + currentTimeMin + "-" + addTime(0, estimatedtimeAtLocation[i])+"<th>" + places[i] + "</th>");
+  						$("table").append("<tr><th>" + updateTime() + "-" + addTime(0, estimatedtimeAtLocation[i])+"<th>" + places[i] + "</th>");
   					}
   					else{
-  						$("table").append("<tr><th>" + currentTimeHour + ":" + currentTimeMin + "-" + addTime(0, estimatedtimeAtLocation[i])+"<th>" + places[i] + "</th>");
+  						$("table").append("<tr><th>" + updateTime() + "-" + addTime(0, estimatedtimeAtLocation[i])+"<th>" + places[i] + "</th>");
   					}					
 
 
@@ -71,7 +91,7 @@
 
 
   		  	</script>  	
-
+  		  	</tbody>
   		  	</table>
   </div>
 </body>
